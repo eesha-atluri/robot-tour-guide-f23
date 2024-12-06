@@ -8,7 +8,7 @@ import time
 
 OUT_PATH = "output"
 
-MIN_AREA = 50
+MIN_AREA = 500
 UPPER_RATIO = 1.2
 LOWER_RATIO = 0.8
 ARC_SCALE = 0.02
