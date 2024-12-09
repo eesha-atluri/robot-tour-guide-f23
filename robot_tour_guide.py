@@ -1,3 +1,4 @@
+import os
 import sys
 import signal
 import time
@@ -72,6 +73,25 @@ def main():
   # the result to determine which waypoint to visit next. You will need to use the
   # "labels" and "waypoints" variables! When the robot reads a poster with label "0",
   # it should return to the start position (0, 0, 0) and the program should exit.
+
+  while True:
+    frame = ch.get_processed_image()
+    if frame is not None:
+      y_pred = model.predict([frame])[0]
+      time.sleep(1)
+      try:
+        goal = waypoints[labels.index(y_pred)]
+        plan_to_pose(goal[0], goal[1], robot)
+        turn_to_theta(goal[2], robot)
+        time.sleep(1)
+        if (y_pred == 0):
+          robot.stop
+          break
+      except Exception as e:
+        print(e)
+    else:
+      time.sleep(1)
+
   
 
 if __name__ == '__main__':
